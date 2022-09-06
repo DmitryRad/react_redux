@@ -1,36 +1,19 @@
-import { Component } from 'react';
-import { connect }  from "react-redux";
-import * as actions from '../actions';
+import { dec, inc, rnd } from '../actions';
+import { useSelector, useDispatch } from "react-redux";
 
-// const Counter = ({ counter, inc, dec, rnd }) => {
-//     return (
-//         <div className="jumbotron">
-//             <h1>{counter}</h1>
-//             <button onClick={dec} className="btn btn-primacy">DEC</button>
-//             <button onClick={inc} className="btn btn-primacy">INC</button>
-//             <button onClick={rnd} className="btn btn-primacy">RND</button>
-//         </div>
-//     )
-// }
+const Counter = () => {
 
-class Counter extends Component {
-    render() {
-        const { counter, inc, dec, rnd } = this.props;
-        return(
-            <div className="jumbotron">
+    const counter = useSelector(state => state.counter);
+    const dispatch = useDispatch();
+
+    return (
+        <div className="jumbotron">
             <h1>{counter}</h1>
-            <button onClick={dec} className="btn btn-primacy">DEC</button>
-            <button onClick={inc} className="btn btn-primacy">INC</button>
-            <button onClick={rnd} className="btn btn-primacy">RND</button>
+            <button onClick={() => dispatch(dec())} className="btn btn-primacy">DEC</button>
+            <button onClick={() => dispatch(inc())} className="btn btn-primacy">INC</button>
+            <button onClick={() => dispatch(rnd())} className="btn btn-primacy">RND</button>
         </div>
-        )
-    }
+    )
 }
 
-const mapStateToProps = (state) => {
-    return {
-        counter: state.value
-    }
-}
-
-export default connect(mapStateToProps, actions)(Counter);
+export default Counter;
